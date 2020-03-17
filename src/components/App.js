@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import MainDisplay from './MainDisplay'
-
+import Slider from './Slider';
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -12,8 +11,7 @@ const GlobalStyle = createGlobalStyle`
 
   #app{
     height: 100vh;
-    display: grid;
-    grid-template-rows: 2fr 1fr 1fr 1fr 1fr;
+    width: 100vw;
   }
 `
 
@@ -22,7 +20,7 @@ class App extends Component{
     return(
       <React.Fragment>
         <GlobalStyle />
-        <MainDisplay />
+        <Slider />
       </React.Fragment>
     );
   }

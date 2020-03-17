@@ -32,15 +32,11 @@ const TempoName = styled.p `
   background-clip: text;
 `
 
-class MainDisplay extends React.Component{
- render(){
+export default function MainDisplay(props){
     return(
       <React.Fragment>
-        <BpmMeter>187 BPM</BpmMeter>
+        <BpmMeter>{props.bpmValue} BPM</BpmMeter>
         <TempoName>Presto</TempoName>
       </React.Fragment>
     );
-  } 
 }
-
-export default MainDisplay;
