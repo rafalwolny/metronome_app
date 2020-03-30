@@ -32,7 +32,7 @@ const TempoName = styled.p `
   background-clip: text;
 `
 
-export default function MainDisplay(props){
+export default function DisplayBPM(props){
     return(
       <React.Fragment>
         <BpmMeter>{props.bpmValue} BPM</BpmMeter>

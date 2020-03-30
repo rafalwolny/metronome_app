@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import MainDisplay from './MainDisplay';
-import PlaySection from './PlaySection';
+import DisplayBPM from './DisplayBPM';
+import ControlSection from './ControlSection';
 
 const Container = styled.div `
   height: 70vh;
@@ -24,9 +24,9 @@ export default class Slider extends React.Component {
   render(){
     return(
       <Container>
-        <MainDisplay bpmValue={this.state.bpmValue} />
+        <DisplayBPM bpmValue={this.state.bpmValue} />
         <BPMSlider type="range" min={20} max={200} value={this.state.bpmValue} className="slider" onChange={(e) => this.setState({bpmValue: e.target.value})} />
-        <PlaySection />
+        <ControlSection bpmValue={this.state.bpmValue} />
       </Container>
     );
   }
