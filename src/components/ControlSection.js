@@ -29,8 +29,7 @@ export default class ControlSection extends React.Component{
 
   handleClick() {
     this.setState(state => ({ isToggleOn: !state.isToggleOn }));
-    console.log(this.refs.tickingSection);
-    
+    this.refs.tickingSection.ticking();
   }
 
   render(){
