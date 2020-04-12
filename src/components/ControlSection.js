@@ -23,19 +23,29 @@ const PlayButton = styled.button `
 export default class ControlSection extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {isToggleOn: true};
+    this.state = {
+      isToggleOn: true,
+      miliseconds: 1500
+    };
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  bpmToMiliseconds = () => {
+    // console.log(this.props.bpmValue);
+    this.setState(state => ({ miliseconds: Math.round(this.props.bpmValue * 100 / 6) }));
+    setTimeout(() => { console.log(this.state); }, 10);
   }
 
   handleClick() {
     this.setState(state => ({ isToggleOn: !state.isToggleOn }));
+    this.bpmToMiliseconds();
     this.refs.tickingSection.ticking();
   }
 
   render(){
     return(
       <Container>
-        <TickingSection ref="tickingSection" bpmValue={this.props.bpmValue} />
+        <TickingSection ref="tickingSection" miliseconds={this.state.miliseconds} />
         <PlayButton type="button" onClick={this.handleClick}>
           {this.state.isToggleOn ? 'WŁĄCZONY' : 'WYŁĄCZONY'}
         </PlayButton>
