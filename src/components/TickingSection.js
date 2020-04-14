@@ -16,15 +16,16 @@ export default class TickingSection extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      circleOne:   { id: '1', color: '#ffe417', isActive: true },
-      circleTwo:   { id: '2', color: '#0695C1', isActive: false },
-      circleThree: { id: '3', color: '#0695C1', isActive: false },
-      circleFour:  { id: '4', color: '#0695C1', isActive: false }
+      circleOne:   { color: '#0695C1', isActive: false },
+      circleTwo:   { color: '#0695C1', isActive: false },
+      circleThree: { color: '#0695C1', isActive: false },
+      circleFour:  { color: '#0695C1', isActive: false }
     };
-    this.ticking = this.ticking.bind(this);
+    this.startTicking = this.startTicking.bind(this);
+    this.stopTicking = this.stopTicking.bind(this);
   }
 
-  circleOneChange(){
+  circleOneChange = () => {
     this.setState(state => {
       let circleOne = Object.assign({}, state.circleOne);
       circleOne.isActive ? circleOne.color = '#0695C1' : circleOne.color = '#ffe417' ;
@@ -33,7 +34,7 @@ export default class TickingSection extends React.Component{
     });
   }
 
-  circleTwoChange(){
+  circleTwoChange = () => {
     this.setState(state => {
       let circleTwo = Object.assign({}, state.circleTwo);
       circleTwo.isActive ? circleTwo.color = '#0695C1' : circleTwo.color = '#ffe417' ;
@@ -42,7 +43,7 @@ export default class TickingSection extends React.Component{
     });
   }
 
-  circleThreeChange(){
+  circleThreeChange = () => {
     this.setState(state => {
       let circleThree = Object.assign({}, state.circleThree);
       circleThree.isActive ? circleThree.color = '#0695C1' : circleThree.color = '#ffe417' ;
@@ -51,7 +52,7 @@ export default class TickingSection extends React.Component{
     });
   }
 
-  circleFourChange(){
+  circleFourChange = () => {
     this.setState(state => {
       let circleFour = Object.assign({}, state.circleFour);
       circleFour.isActive ? circleFour.color = '#0695C1' : circleFour.color = '#ffe417' ;
@@ -60,16 +61,26 @@ export default class TickingSection extends React.Component{
     });
   }
 
-  ticking(){
-    this.circleOneChange();
-    // this.circleTwoChange();
-    // this.circleThreeChange();
-    // this.circleFourChange();
+  // startTicking = () => {
+  //   const tickingInterval = setInterval(() => {
+  //     this.circleOneChange();
+  //     if(this.props.isToggleOn == false){ clearInterval(tickingInterval); }
+  //   }, this.props.miliseconds);
+  // }
 
-    setTimeout(() => { console.log(this.state); }, 10);
+  startTicking(){
+    this.myInterval = setInterval(() => {
+      this.circleOneChange();
+    }, this.props.miliseconds);
+
+    // setTimeout(() => { console.log('state: ', this.state); console.log('props: ', this.props); }, 5);
   }
 
+  stopTicking(){
+    clearInterval(this.myInterval);
 
+    // setTimeout(() => { console.log('state: ', this.state); console.log('props: ', this.props); }, 5);
+  }
 
   render(){
     return(
