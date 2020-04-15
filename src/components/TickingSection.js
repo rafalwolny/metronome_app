@@ -19,7 +19,8 @@ export default class TickingSection extends React.Component{
       circleOne:   { color: '#0695C1', isActive: false },
       circleTwo:   { color: '#0695C1', isActive: false },
       circleThree: { color: '#0695C1', isActive: false },
-      circleFour:  { color: '#0695C1', isActive: false }
+      circleFour:  { color: '#0695C1', isActive: false },
+      miliseconds: 667
     };
     this.startTicking = this.startTicking.bind(this);
     this.stopTicking = this.stopTicking.bind(this);
@@ -61,25 +62,35 @@ export default class TickingSection extends React.Component{
     });
   }
 
-  // startTicking = () => {
-  //   const tickingInterval = setInterval(() => {
-  //     this.circleOneChange();
-  //     if(this.props.isToggleOn == false){ clearInterval(tickingInterval); }
-  //   }, this.props.miliseconds);
-  // }
-
   startTicking(){
-    this.myInterval = setInterval(() => {
-      this.circleOneChange();
-    }, this.props.miliseconds);
-
     // setTimeout(() => { console.log('state: ', this.state); console.log('props: ', this.props); }, 5);
+    this.myInterval = setInterval(() => {
+      if(this.state.circleOne.isActive) { this.circleOneChange(); this.circleTwoChange(); }
+      else if(this.state.circleTwo.isActive) { this.circleTwoChange(); this.circleThreeChange(); }
+      else if(this.state.circleThree.isActive) { this.circleThreeChange(); this.circleFourChange(); }
+      else if (this.state.circleFour.isActive) { this.circleFourChange(); this.circleOneChange(); }
+      else this.circleOneChange();
+    }, this.state.miliseconds);
   }
 
   stopTicking(){
     clearInterval(this.myInterval);
+    if(this.state.circleOne.isActive) { this.circleOneChange(); }
+    if(this.state.circleTwo.isActive) { this.circleTwoChange(); }
+    if(this.state.circleThree.isActive) { this.circleThreeChange(); }
+    if(this.state.circleFour.isActive) { this.circleFourChange(); }
 
     // setTimeout(() => { console.log('state: ', this.state); console.log('props: ', this.props); }, 5);
+  }
+
+  componentDidUpdate(){
+    if(this.state.miliseconds != this.props.miliseconds) { 
+      clearInterval(this.myInterval);
+      this.setState({ miliseconds: this.props.miliseconds })
+      console.log(this.props.isToggleOn);
+      setTimeout(() => { this.startTicking(); }, 5);
+    }
+    // setTimeout(() => { console.log('componentDidUpdate: state: ', this.state); console.log('props: ', this.props); }, 5);
   }
 
   render(){

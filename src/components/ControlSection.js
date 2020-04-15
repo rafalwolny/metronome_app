@@ -24,21 +24,13 @@ export default class ControlSection extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      isToggleOn: false,
-      miliseconds: 1500
+      isToggleOn: false
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
-  bpmToMiliseconds = () => {
-    // console.log(this.props.bpmValue);
-    this.setState(state => ({ miliseconds: Math.round(60000 / this.props.bpmValue) }));
-    // setTimeout(() => { console.log(this.state); }, 10);
-  }
-
   handleClick() {
     this.setState(state => ({ isToggleOn: !state.isToggleOn }));
-    this.bpmToMiliseconds();
     if(this.state.isToggleOn){
       setTimeout(() => { this.refs.tickingSection.stopTicking(); }, 5);
     } else {
@@ -49,7 +41,7 @@ export default class ControlSection extends React.Component{
   render(){
     return(
       <Container>
-        <TickingSection ref="tickingSection" miliseconds={this.state.miliseconds} isToggleOn={this.state.isToggleOn} />
+        <TickingSection ref="tickingSection" miliseconds={this.props.miliseconds} isToggleOn={this.state.isToggleOn} />
         <PlayButton type="button" onClick={this.handleClick}>
           {this.state.isToggleOn ? 'WŁĄCZONY' : 'WYŁĄCZONY'}
         </PlayButton>

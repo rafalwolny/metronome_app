@@ -17,16 +17,22 @@ export default class Slider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bpmValue: 90
+      bpmValue: 90,
+      miliseconds: 667
     }
+  }
+
+  bpmToMiliseconds = () => {
+    setTimeout(() => { this.setState({ miliseconds: Math.round(60000 / this.state.bpmValue) }) }, 5)
+    // setTimeout(() => { console.log(this.state); }, 10);
   }
 
   render(){
     return(
       <Container>
         <DisplayBPM bpmValue={this.state.bpmValue} />
-        <BPMSlider type="range" min={20} max={200} value={this.state.bpmValue} className="slider" onChange={(e) => this.setState({bpmValue: e.target.value})} />
-        <ControlSection bpmValue={this.state.bpmValue} />
+        <BPMSlider type="range" min={20} max={200} value={this.state.bpmValue} className="slider" onChange={(e) => { this.setState({bpmValue: e.target.value}); this.bpmToMiliseconds(); }} />
+        <ControlSection miliseconds={this.state.miliseconds} />
       </Container>
     );
   }
