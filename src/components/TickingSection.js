@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import click1 from '../audio/Click1.mp3';
+import click2 from '../audio/Click2.mp3';
 
 const Circle = styled.div `
   height: 60%;
@@ -15,11 +17,13 @@ const Circle = styled.div `
 export default class TickingSection extends React.Component{
   constructor(props){
     super(props);
+    this.stressedClick = React.createRef();
+    this.defaultClick = React.createRef();
     this.state = {
-      circleOne:   { color: '#0695C1', isActive: false },
-      circleTwo:   { color: '#0695C1', isActive: false },
-      circleThree: { color: '#0695C1', isActive: false },
-      circleFour:  { color: '#0695C1', isActive: false },
+      circleOne:   { color: '#0695C1', isActive: false, isStressed: true },
+      circleTwo:   { color: '#0695C1', isActive: false, isStressed: false },
+      circleThree: { color: '#0695C1', isActive: false, isStressed: false },
+      circleFour:  { color: '#0695C1', isActive: false, isStressed: false },
       miliseconds: 667
     };
     this.startTicking = this.startTicking.bind(this);
@@ -27,6 +31,7 @@ export default class TickingSection extends React.Component{
   }
 
   circleOneChange = () => {
+    if (!this.state.circleOne.isActive) {this.state.circleOne.isStressed ? this.stressedClick.current.play() : this.defaultClick.current.play() }
     this.setState(state => {
       let circleOne = Object.assign({}, state.circleOne);
       circleOne.isActive ? circleOne.color = '#0695C1' : circleOne.color = '#ffe417' ;
@@ -36,6 +41,7 @@ export default class TickingSection extends React.Component{
   }
 
   circleTwoChange = () => {
+    if (!this.state.circleTwo.isActive) {this.state.circleTwo.isStressed ? this.stressedClick.current.play() : this.defaultClick.current.play() }
     this.setState(state => {
       let circleTwo = Object.assign({}, state.circleTwo);
       circleTwo.isActive ? circleTwo.color = '#0695C1' : circleTwo.color = '#ffe417' ;
@@ -45,6 +51,7 @@ export default class TickingSection extends React.Component{
   }
 
   circleThreeChange = () => {
+    if (!this.state.circleThree.isActive) {this.state.circleThree.isStressed ? this.stressedClick.current.play() : this.defaultClick.current.play() }
     this.setState(state => {
       let circleThree = Object.assign({}, state.circleThree);
       circleThree.isActive ? circleThree.color = '#0695C1' : circleThree.color = '#ffe417' ;
@@ -54,6 +61,7 @@ export default class TickingSection extends React.Component{
   }
 
   circleFourChange = () => {
+    if (!this.state.circleFour.isActive) {this.state.circleFour.isStressed ? this.stressedClick.current.play() : this.defaultClick.current.play() }
     this.setState(state => {
       let circleFour = Object.assign({}, state.circleFour);
       circleFour.isActive ? circleFour.color = '#0695C1' : circleFour.color = '#ffe417' ;
@@ -83,6 +91,11 @@ export default class TickingSection extends React.Component{
     // setTimeout(() => { console.log('state: ', this.state); console.log('props: ', this.props); }, 5);
   }
 
+  stress = () => {this.setState(state => { 
+    let circleOne = Object.assign({}, state.circleOne); 
+    circleOne.isStressed = !circleOne.isStressed; 
+    return { circleOne }; })}
+
   componentDidUpdate(){
     if(this.state.miliseconds != this.props.miliseconds) { 
       clearInterval(this.myInterval);
@@ -96,10 +109,12 @@ export default class TickingSection extends React.Component{
   render(){
     return(
       <React.Fragment>
-        <Circle color={this.state.circleOne.color} />
-        <Circle color={this.state.circleTwo.color} />
-        <Circle color={this.state.circleThree.color} />
-        <Circle color={this.state.circleFour.color} />
+        <audio id="stressed" ref={this.stressedClick} src={click1}></audio>
+        <audio id="default" ref={this.defaultClick} src={click2}></audio>
+        <Circle color={this.state.circleOne.color} onClick={this.stress}/>
+        <Circle color={this.state.circleTwo.color}></Circle>
+        <Circle color={this.state.circleThree.color}></Circle>
+        <Circle color={this.state.circleFour.color}></Circle>
       </React.Fragment>
     );
   }
