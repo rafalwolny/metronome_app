@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import click1 from '../audio/Click1.mp3';
-import click2 from '../audio/Click2.mp3';
 
 const Circle = styled.div `
   height: 60%;
@@ -109,8 +107,8 @@ export default class TickingSection extends React.Component{
   render(){
     return(
       <React.Fragment>
-        <audio id="stressed" ref={this.stressedClick} src={click1}></audio>
-        <audio id="default" ref={this.defaultClick} src={click2}></audio>
+        <audio id="stressed" ref={this.stressedClick} src="src/audio/Click1.mp3" />
+        <audio id="default" ref={this.defaultClick} src="src/audio/Click2.mp3" />
         <Circle color={this.state.circleOne.color} onClick={this.stress}/>
         <Circle color={this.state.circleTwo.color}></Circle>
         <Circle color={this.state.circleThree.color}></Circle>
