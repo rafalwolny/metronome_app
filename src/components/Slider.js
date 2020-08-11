@@ -31,7 +31,7 @@ export default class Slider extends React.Component {
     return(
       <Container>
         <DisplayBPM bpmValue={this.state.bpmValue} />
-        <BPMSlider type="range" min={20} max={200} value={this.state.bpmValue} className="slider" onChange={(e) => { this.setState({bpmValue: e.target.value}); this.bpmToMiliseconds(); }} />
+        <BPMSlider type="range" min={20} max={200} step={1} value={this.state.bpmValue} className="slider" onChange={(e) => { this.setState({bpmValue: e.target.value}); this.bpmToMiliseconds(); }} />
         <ControlSection miliseconds={this.state.miliseconds} />
       </Container>
     );
