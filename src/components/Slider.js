@@ -24,7 +24,7 @@ export default class Slider extends React.Component {
 
   bpmToMiliseconds = () => {
     setTimeout(() => { this.setState({ miliseconds: Math.round(60000 / this.state.bpmValue) }) }, 5)
-    // setTimeout(() => { console.log(this.state); }, 10);
+    setTimeout(() => { console.log(this.state); }, 10);
   }
 
   render(){
