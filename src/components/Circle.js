@@ -18,7 +18,7 @@ const StressedCircle = styled.div `
   border-radius: 50%;
   background-color: ${ props => props.color };
   box-shadow: inset 1px 1px 10px rgba(0, 0, 0, .3);
-  border: 2px solid rgba(38, 0, 255, .8);
+  border: 2px solid rgba(10, 67, 84, .8);
   align-self: center;
   justify-self: center;
 `
